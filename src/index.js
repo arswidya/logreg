@@ -6,13 +6,16 @@ const session = require('express-session');
 const authRoutes = require('./routes/auth');
 const usersRoutes = require('./routes/users');
 const postRoutes = require('./routes/posts');
-const admin = require('firebase-admin');
+// const admin = require('firebase-admin');
 
-const serviceAccount = require('./reglog-25c52-firebase-adminsdk-8zr70-96d8e620b8.json');
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://reglog-25c52.firebaseio.com',
-});
+// const serviceAccount = require('./reglog-25c52-firebase-adminsdk-8zr70-96d8e620b8.json');
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+//   databaseURL: 'https://reglog-25c52.firebaseio.com',
+// });
+
+// connectDB
+const { db } = require('./config/firebase');
 
 const middlewareLogRequest = require('./middleware/logs');
 const isAuthenticated = require('./middleware/isAutheticated');
@@ -27,8 +30,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   reset: false, 
   saveUninitialized: false,
-
-}))
+}));
 
 app.use('/auth', authRoutes);
 app.use('/users', usersRoutes);
@@ -37,10 +39,20 @@ app.use('/post', isAuthenticated, postRoutes);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-app.listen(PORT, () => {
-    console.log(`Server is running on ${PORT}`);
-})
 
+
+const start = async () => {
+  try {
+    db;
+    app.listen(PORT, () =>
+    console.log(`Server is listening on port ${PORT}`)
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+start();
 
 
 // Initialize Firebase Admin with your credentials

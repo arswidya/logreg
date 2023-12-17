@@ -19,14 +19,16 @@ const login = async (req, res) => {
       error: false,
       msg: 'Login successful',
       body: {
-        uid: user.uid, 
-        name: user.displayName,
-        email: user.email, 
-        token: idToken, 
-        accesstoken: user.accessToken,
-        // user,
+        // uid: user.uid, 
+        // name: user.displayName,
+        // email: user.email, 
+        // token: idToken, 
+        // accesstoken: user.accessToken,
+        user,
       },
      });
   };
 
-  module.export={login}
+  module.exports = {
+    login,
+  };

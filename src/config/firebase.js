@@ -1,6 +1,6 @@
 const firebase = require('firebase');
 const admin = require('firebase-admin');
-const serviceAccount = require('./reglog-25c52-firebase-adminsdk-8zr70-96d8e620b8.json');
+const serviceAccount = require('./service-account.json');
 
 
 const firebaseConfig = {
