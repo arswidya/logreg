@@ -2,6 +2,7 @@ const { firebase } = require('../config/firebase');
 
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, UnauthenticatedError } = require('../errors');
+const errorHandlerMiddleware = require('../middleware/error-handler');
 
 const login = async (req, res) => {
     const { email, password } = req.body;
@@ -19,12 +20,12 @@ const login = async (req, res) => {
       error: false,
       msg: 'Login successful',
       body: {
-        // uid: user.uid, 
-        // name: user.displayName,
-        // email: user.email, 
-        // token: idToken, 
-        // accesstoken: user.accessToken,
-        user,
+        uid: user.uid, 
+        name: user.displayName,
+        email: user.email, 
+        token: idToken, 
+        accesstoken: user.accessToken,
+        // user,
       },
      });
   };

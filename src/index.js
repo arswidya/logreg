@@ -1,7 +1,9 @@
 require('dotenv').config()
+require('express-async-errors');
 const PORT = process.env.PORT || 4000;
 const express = require('express');
 const session = require('express-session');
+const app = express();
 
 const authRoutes = require('./routes/auth');
 const usersRoutes = require('./routes/users');
@@ -22,7 +24,7 @@ const isAuthenticated = require('./middleware/isAutheticated');
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
-const app = express();
+
 
 app.use(middlewareLogRequest);
 app.use(express.json());
